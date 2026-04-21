@@ -1,8 +1,10 @@
-import { animate, stagger, createTimeline, createMotionPath, createDrawable } from "https://cdn.jsdelivr.net/npm/animejs/+esm";
+import { animate, stagger } from "https://cdn.jsdelivr.net/npm/animejs/+esm";
 
 const revealTargets = Array.from(document.querySelectorAll(".reveal"));
-const floatCards = Array.from(document.querySelectorAll(".float-card"));
-const heroLines = Array.from(document.querySelectorAll(".hero-line"));
+const stepCards = Array.from(document.querySelectorAll(".workflow-step"));
+const storyVisual = document.querySelector(".story-visual");
+const storyTitle = document.querySelector(".visual-title");
+const sampleCore = document.querySelector(".sample-core");
 const referralFrame = document.getElementById("referral-frame");
 const referralFrameWrap = document.getElementById("referral-frame-wrap");
 const referralEmpty = document.getElementById("referral-empty");
@@ -13,31 +15,46 @@ const siteConfig = window.BEHRING_SITE_CONFIG || {};
 const referralFormUrl = siteConfig.referralFormUrl || "";
 const referralFallbackUrl = siteConfig.referralFallbackUrl || "https://portal.behringdx.health";
 
+const stageTitles = {
+  received: "Referral received",
+  grossing: "Gross intake in motion",
+  staining: "Sectioned and stained",
+  reporting: "Report ready for release"
+};
+
 function playEntrance() {
-  animate(heroLines, {
-    y: [34, 0],
+  animate(".hero-copy .eyebrow, .hero-copy h1, .hero-copy .hero-lead", {
     opacity: [0, 1],
-    filter: ["blur(12px)", "blur(0px)"],
-    duration: 1100,
-    delay: stagger(180),
-    ease: "out(4)"
+    translateY: [28, 0],
+    duration: 900,
+    delay: stagger(130),
+    ease: "out(3)"
   });
 
   animate(".hero-actions .cta", {
-    y: [20, 0],
     opacity: [0, 1],
-    duration: 900,
-    delay: stagger(120, { start: 450 }),
+    translateY: [22, 0],
+    duration: 760,
+    delay: stagger(110, { start: 340 }),
     ease: "out(3)"
   });
 
-  animate(revealTargets, {
-    y: [18, 0],
+  animate(".scene-microscope, .scene-slide-card, .scene-status, .scene-caption", {
     opacity: [0, 1],
-    duration: 880,
-    delay: stagger(90, { start: 180 }),
-    ease: "out(3)"
+    scale: [0.94, 1],
+    duration: 1100,
+    delay: stagger(110, { start: 160 }),
+    ease: "out(4)"
   });
+
+  if (sampleCore) {
+    animate(sampleCore, {
+      scale: [0.88, 1.06, 1],
+      duration: 2200,
+      ease: "inOutSine",
+      loop: true
+    });
+  }
 }
 
 function watchReveals() {
@@ -46,59 +63,68 @@ function watchReveals() {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         animate(entry.target, {
-          y: [22, 0],
           opacity: [0, 1],
+          translateY: [22, 0],
           duration: 760,
           ease: "out(3)"
         });
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.16 }
+    { threshold: 0.18 }
   );
 
   revealTargets.forEach((target) => observer.observe(target));
 }
 
-function addPointerLift() {
-  const limitX = 10;
-  const limitY = 12;
+function setStage(stage) {
+  if (!storyVisual) return;
 
-  floatCards.forEach((card, index) => {
-    card.addEventListener("pointermove", (event) => {
-      const box = card.getBoundingClientRect();
-      const px = (event.clientX - box.left) / box.width - 0.5;
-      const py = (event.clientY - box.top) / box.height - 0.5;
+  storyVisual.dataset.stage = stage;
+  if (storyTitle && stageTitles[stage]) {
+    storyTitle.textContent = stageTitles[stage];
+  }
 
-      animate(card, {
-        rotateY: px * limitX,
-        rotateX: -py * limitY,
-        scale: 1.015,
-        duration: 420,
-        ease: "out(3)"
-      });
+  stepCards.forEach((card) => {
+    card.classList.toggle("is-active", card.dataset.stage === stage);
+  });
 
-      const strength = 18 + index * 3;
-      card.style.boxShadow = `0 38px 90px rgba(0,0,0,0.42), 0 0 ${strength}px rgba(137, 215, 255, 0.12)`;
-    });
+  animate(".visual-slide", {
+    scale: [0.96, 1],
+    duration: 420,
+    ease: "out(3)"
+  });
 
-    card.addEventListener("pointerleave", () => {
-      animate(card, {
-        rotateY: 0,
-        rotateX: 0,
-        scale: 1,
-        duration: 600,
-        ease: "out(4)"
-      });
-      card.style.boxShadow = "";
-    });
+  animate(".visual-output", {
+    opacity: storyVisual.dataset.stage === "reporting" ? [0.45, 1] : [1, 0.2],
+    duration: 380,
+    ease: "out(2)"
   });
 }
 
+function watchWorkflow() {
+  if (!stepCards.length || !storyVisual) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      setStage(visible.target.dataset.stage);
+    },
+    {
+      threshold: [0.35, 0.6, 0.8],
+      rootMargin: "-12% 0px -20% 0px"
+    }
+  );
+
+  stepCards.forEach((card) => observer.observe(card));
+}
+
 function mountReferralForm() {
-  if (!referralFrame || !referralFrameWrap || !referralEmpty || !referralState || !referralLink) {
-    return;
-  }
+  if (!referralFrame || !referralFrameWrap || !referralEmpty || !referralState || !referralLink) return;
 
   referralLink.href = referralFallbackUrl;
 
@@ -115,61 +141,7 @@ function mountReferralForm() {
   referralState.textContent = "Live public intake";
 }
 
-function animateFlowStage() {
-  const flowPath = document.querySelector("#diagnostic-path");
-  const traveler = document.querySelector(".flow-traveler");
-  const pulse = document.querySelector(".flow-pulse");
-  const flowNodes = Array.from(document.querySelectorAll(".flow-node"));
-
-  if (!flowPath || !traveler || !pulse || !flowNodes.length) {
-    return;
-  }
-
-  const [drawable] = createDrawable(flowPath);
-  const motionPath = createMotionPath(flowPath);
-
-  drawable.draw = "0 0";
-
-  animate(drawable, {
-    draw: ["0 0", "0 1"],
-    duration: 2200,
-    ease: "inOut(3)"
-  });
-
-  animate(flowNodes, {
-    opacity: [0, 1],
-    scale: [0.94, 1],
-    y: [18, 0],
-    duration: 900,
-    delay: stagger(180, { start: 350 }),
-    ease: "out(3)"
-  });
-
-  const travel = createTimeline({
-    loop: true,
-    defaults: {
-      duration: 4200,
-      ease: "linear"
-    }
-  });
-
-  travel
-    .add(traveler, {
-      translateX: motionPath.translateX,
-      translateY: motionPath.translateY,
-      rotate: motionPath.rotate
-    }, 0)
-    .add(pulse, {
-      scale: [0.8, 2.6],
-      opacity: [0.8, 0],
-      duration: 1200,
-      ease: "out(4)",
-      loop: true
-    }, 0);
-}
-
 playEntrance();
 watchReveals();
-addPointerLift();
+watchWorkflow();
 mountReferralForm();
-animateFlowStage();

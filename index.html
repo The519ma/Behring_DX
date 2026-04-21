@@ -4,349 +4,168 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Behring DX | behringdx.health</title>
-  <meta name="description" content="Behring DX bridges patients and pathology with a cleaner diagnostic experience, referral workflow, and pathology-first digital infrastructure.">
-  <meta name="theme-color" content="#08131d">
+  <meta name="description" content="A pathology-first lab workflow for clearer referrals, cleaner specimen handling, and faster sign-out.">
+  <meta name="theme-color" content="#f0ae17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="noise"></div>
   <div class="page-shell">
-    <header class="site-header reveal">
-      <div class="brand-lockup">
+    <header class="site-header">
+      <a class="brand-lockup" href="#top" aria-label="Behring DX home">
         <img src="./logo.png" alt="Behring DX logo" class="brand-logo">
-        <div>
-          <div class="brand-name">Behring DX</div>
-          <div class="brand-sub">behringdx.health</div>
+        <div class="brand-text">
+          <span class="brand-name">Behring DX</span>
+          <span class="brand-sub">Immuno Histo Chemistry</span>
         </div>
-      </div>
-      <nav class="site-nav">
-        <a href="#platform">Platform</a>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
         <a href="#workflow">Workflow</a>
-        <a href="#referrals">Referrals</a>
-        <a href="#ops">Ops</a>
-        <a href="#future">Next</a>
-        <a href="https://portal.behringdx.health" target="_blank" rel="noreferrer">Portal</a>
+        <a href="#referrals">Referral</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
-    <main>
+    <main id="top">
       <section class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow reveal">behringdx.health</div>
-          <h1 class="hero-title">
-            <span class="hero-line hero-line-primary">Bridging patients</span>
-            <span class="hero-line hero-line-secondary">and pathology</span>
-            <span class="hero-line hero-line-tertiary">with more clarity.</span>
-          </h1>
-          <p class="hero-lead reveal">
-            Behring DX is the public face of the same pathology-first system we are building behind the scenes:
-            clearer referrals, more structured specimen workflow, sharper reporting, and a more trustworthy digital
-            experience for clinicians and patients.
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Pathology-first workflow</p>
+          <h1>From one slide to the whole lab process.</h1>
+          <p class="hero-lead">
+            Behring DX keeps the story simple: a specimen arrives, is processed with intent,
+            reviewed with context, and released with less friction.
           </p>
-          <div class="hero-actions reveal">
-            <a class="cta cta-primary" href="https://portal.behringdx.health" target="_blank" rel="noreferrer">Portal Access</a>
-            <a class="cta cta-secondary" href="#referrals">Start a Referral</a>
-            <a class="cta cta-secondary" href="#platform">Explore the Platform</a>
+          <div class="hero-actions">
+            <a class="cta cta-primary" href="#workflow">See the flow</a>
+            <a class="cta cta-secondary" href="#referrals">Start referral</a>
           </div>
         </div>
 
-        <aside class="hero-panel reveal">
-          <div class="hero-panel-header">
-            <span class="panel-dot"></span>
-            Current prototype direction
+        <div class="hero-stage reveal">
+          <div class="stage-frame">
+            <div class="stage-label">Live process view</div>
+            <svg class="slide-scene" viewBox="0 0 780 560" role="img" aria-label="A specimen slide and microscope scene">
+              <defs>
+                <linearGradient id="goldFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffd769"></stop>
+                  <stop offset="100%" stop-color="#f0ae17"></stop>
+                </linearGradient>
+                <linearGradient id="glassFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.95)"></stop>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.68)"></stop>
+                </linearGradient>
+              </defs>
+
+              <g class="scene-microscope">
+                <path d="M526 130c42 0 81 31 81 87 0 39-18 67-49 89l26 42h38v34H476v-34h46l-20-33h-123c-42 0-74-26-74-67 0-28 17-51 45-63l59-24v-63h117v32h-70v22h70v-22z"></path>
+                <circle cx="520" cy="247" r="28"></circle>
+                <rect x="369" y="299" width="170" height="18" rx="9"></rect>
+              </g>
+
+              <g class="scene-slide-card">
+                <rect x="126" y="314" width="262" height="122" rx="20"></rect>
+                <rect x="160" y="344" width="196" height="62" rx="12"></rect>
+                <ellipse class="sample-shadow" cx="259" cy="375" rx="68" ry="20"></ellipse>
+                <ellipse class="sample-core" cx="259" cy="375" rx="54" ry="28"></ellipse>
+                <circle class="sample-glow" cx="259" cy="375" r="16"></circle>
+              </g>
+
+              <g class="scene-status">
+                <rect x="486" y="84" width="202" height="64" rx="18"></rect>
+                <text x="514" y="123">SPECIMEN READY</text>
+              </g>
+
+              <g class="scene-caption">
+                <text x="122" y="486">One accession. One clear path.</text>
+              </g>
+            </svg>
           </div>
-          <div class="hero-panel-grid">
-            <article class="metric-card float-card">
-              <span class="metric-label">Referral experience</span>
-              <strong>Structured, referral-friendly intake</strong>
-              <p>The outward-facing product should feel simple and credible before the specimen even reaches the lab bench.</p>
-            </article>
-            <article class="metric-card float-card">
-              <span class="metric-label">Workflow engine</span>
-              <strong>Pathology-specific orchestration</strong>
-              <p>Behind the site, Behring coordinates normalization, labels, barcode resolution, handoff, and reconciliation.</p>
-            </article>
-            <article class="metric-card float-card">
-              <span class="metric-label">Clinical target</span>
-              <strong>OpenELIS, sharpened for pathology</strong>
-              <p>The operator surface is being trimmed toward pathology and immunohistochemistry instead of a general-lab sprawl.</p>
-            </article>
-          </div>
-        </aside>
-      </section>
-
-      <section class="platform" id="platform">
-        <div class="section-heading reveal">
-          <div class="eyebrow">Platform shape</div>
-          <h2>A cleaner stack for how the lab actually works</h2>
-          <p>
-            The product is not just report text generation. It is the workflow around specimens,
-            blocks, slides, stains, IHC, review, and report release.
-          </p>
-        </div>
-
-        <div class="platform-grid">
-          <article class="feature-card reveal">
-            <span class="feature-kicker">Temporary intake layer</span>
-            <h3>Baserow stays an adapter</h3>
-            <p>
-              The temporary intake layer is useful right now, but the architecture keeps it isolated
-              so it does not become the permanent system of record.
-            </p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-kicker">Core orchestration layer</span>
-            <h3>Behring owns the connective tissue</h3>
-            <p>
-              Labels, barcode targets, reconciliation, report lifecycle helpers, and pathology-specific
-              workflow logic live here, where they can evolve without being trapped in a generic LIMS.
-            </p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-kicker">Clinical operations layer</span>
-            <h3>OpenELIS is being sharpened</h3>
-            <p>
-              The current push is to turn OpenELIS into a focused pathology operator surface instead of
-              a broad lab menu full of biochemistry, serology, and virology branches the team does not use.
-            </p>
-          </article>
         </div>
       </section>
 
-      <section class="workflow-band" id="workflow">
-        <div class="section-heading reveal">
-          <div class="eyebrow">Workflow spine</div>
-          <h2>The pieces we’re lining up</h2>
-        </div>
-
-        <div class="workflow-rail">
-          <article class="rail-card reveal">
-            <span class="rail-step">01</span>
-            <h3>Referral intake</h3>
-            <p>Public-facing intake with structured specimen and clinical context.</p>
-          </article>
-          <article class="rail-card reveal">
-            <span class="rail-step">02</span>
-            <h3>Accession + patient linkage</h3>
-            <p>Middleware drives OpenELIS order creation and the sample-to-patient reconciliation layer.</p>
-          </article>
-          <article class="rail-card reveal">
-            <span class="rail-step">03</span>
-            <h3>Labels + barcodes</h3>
-            <p>Slide, report, and lab-note labels all resolve back to the same case intelligence.</p>
-          </article>
-          <article class="rail-card reveal">
-            <span class="rail-step">04</span>
-            <h3>Grossing, stains, IHC</h3>
-            <p>Pathology-specific steps stay explicit instead of being flattened into generic test flows.</p>
-          </article>
-          <article class="rail-card reveal">
-            <span class="rail-step">05</span>
-            <h3>Review + sign-out</h3>
-            <p>OpenELIS becomes the reporting home once its permissions and pathology surface are tightened.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="flow-lab" id="flow-lab">
-        <div class="section-heading reveal">
-          <div class="eyebrow">Animated System View</div>
-          <h2>A motion layer that explains the product, not just decorates it</h2>
-          <p>
-            This public site can carry the same sense of system choreography as the internal platform.
-            The flow below uses anime.js-driven SVG drawing and node motion so the stack reads as a living,
-            connected diagnostic pathway.
-          </p>
-        </div>
-
-        <div class="flow-stage reveal">
-          <div class="flow-caption">
-            <strong>Referral to report</strong>
-            <span>Public intake, case orchestration, pathology workbench, and sign-out can be shown as one coherent product journey.</span>
-          </div>
-          <svg class="flow-svg" viewBox="0 0 1200 440" aria-labelledby="flow-title flow-desc" role="img">
-            <title id="flow-title">Behring DX animated workflow</title>
-            <desc id="flow-desc">Referral intake flowing through accessioning, pathology review, and finalized reporting.</desc>
-            <defs>
-              <linearGradient id="flow-line" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#89d7ff"></stop>
-                <stop offset="55%" stop-color="#92e7b8"></stop>
-                <stop offset="100%" stop-color="#ffb97a"></stop>
-              </linearGradient>
-              <filter id="flow-glow">
-                <feGaussianBlur stdDeviation="10" result="blur"></feGaussianBlur>
-                <feMerge>
-                  <feMergeNode in="blur"></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-            </defs>
-            <path
-              id="diagnostic-path"
-              class="flow-path"
-              d="M84 290 C 150 190, 240 150, 338 168 S 520 270, 638 224 816 120, 956 160 1096 282, 1130 210"
-            ></path>
-            <path
-              class="flow-path flow-path-ghost"
-              d="M84 290 C 150 190, 240 150, 338 168 S 520 270, 638 224 816 120, 956 160 1096 282, 1130 210"
-            ></path>
-            <g class="flow-node-group">
-              <g class="flow-node float-card" data-node-label="Referral intake" transform="translate(82 242)">
-                <rect x="0" y="0" rx="26" ry="26" width="180" height="106"></rect>
-                <text x="20" y="36" class="node-kicker">01</text>
-                <text x="20" y="62" class="node-title">Referral Intake</text>
-                <text x="20" y="84" class="node-copy">Patient + specimen capture</text>
-              </g>
-              <g class="flow-node float-card" data-node-label="Accession and linkage" transform="translate(294 126)">
-                <rect x="0" y="0" rx="26" ry="26" width="194" height="106"></rect>
-                <text x="20" y="36" class="node-kicker">02</text>
-                <text x="20" y="62" class="node-title">Accession + Linkage</text>
-                <text x="20" y="84" class="node-copy">Case identity + routing</text>
-              </g>
-              <g class="flow-node float-card" data-node-label="Pathology workbench" transform="translate(544 190)">
-                <rect x="0" y="0" rx="26" ry="26" width="204" height="112"></rect>
-                <text x="20" y="38" class="node-kicker">03</text>
-                <text x="20" y="66" class="node-title">Pathology Workbench</text>
-                <text x="20" y="90" class="node-copy">Grossing, stains, review</text>
-              </g>
-              <g class="flow-node float-card" data-node-label="Report crosscheck" transform="translate(816 88)">
-                <rect x="0" y="0" rx="26" ry="26" width="184" height="106"></rect>
-                <text x="20" y="36" class="node-kicker">04</text>
-                <text x="20" y="62" class="node-title">Crosscheck</text>
-                <text x="20" y="84" class="node-copy">Template-ready review</text>
-              </g>
-              <g class="flow-node float-card" data-node-label="Final sign-out" transform="translate(1006 166)">
-                <rect x="0" y="0" rx="26" ry="26" width="154" height="104"></rect>
-                <text x="20" y="36" class="node-kicker">05</text>
-                <text x="20" y="62" class="node-title">Sign-out</text>
-                <text x="20" y="84" class="node-copy">Final release</text>
-              </g>
-            </g>
-            <circle class="flow-pulse" cx="84" cy="290" r="10"></circle>
-            <circle class="flow-traveler" cx="84" cy="290" r="8" filter="url(#flow-glow)"></circle>
-          </svg>
-        </div>
-      </section>
-
-      <section class="referral-shell" id="referrals">
-        <div class="section-heading reveal">
-          <div class="eyebrow">Public Referrals</div>
-          <h2>Referral intake can live on the public site without exposing the internal lab stack</h2>
-          <p>
-            The site is ready to host a public-facing Baserow referral form as an embedded intake surface.
-            We keep the actual form URL configurable so GitHub Pages stays static and safe.
-          </p>
-        </div>
-
-        <div class="referral-grid">
-          <article class="referral-card reveal">
-            <div class="referral-card-head">
-              <h3>Referral Form</h3>
-              <span class="referral-state" id="referral-state">Awaiting public form URL</span>
+      <section class="workflow-story" id="workflow">
+        <div class="story-visual-wrap">
+          <div class="story-visual reveal" data-stage="received">
+            <div class="visual-meta">
+              <span class="visual-kicker">Workflow</span>
+              <strong class="visual-title">Referral received</strong>
             </div>
-            <div class="referral-frame-wrap" id="referral-frame-wrap" hidden>
-              <iframe
-                id="referral-frame"
-                class="referral-frame"
-                title="Behring DX referral form"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-              ></iframe>
+            <div class="visual-frame">
+              <div class="visual-slide">
+                <span class="visual-chip">LAB</span>
+                <span class="visual-chip visual-chip-muted">SLIDE</span>
+                <span class="visual-sample"></span>
+              </div>
+              <div class="visual-rail"></div>
+              <div class="visual-output">REPORT</div>
             </div>
-            <div class="referral-empty" id="referral-empty">
-              <p>
-                Add a public Baserow form URL in <code>site-config.js</code> and this section will turn into a live intake surface.
-              </p>
-              <a class="cta cta-secondary" id="referral-link" href="https://portal.behringdx.health" target="_blank" rel="noreferrer">Open referral portal</a>
-            </div>
+          </div>
+        </div>
+
+        <div class="workflow-steps">
+          <article class="workflow-step reveal is-active" data-stage="received">
+            <span class="step-number">01</span>
+            <h2>Referral lands with specimen context</h2>
+            <p>Clinical background, patient identifiers, and specimen details arrive before the bench work starts.</p>
           </article>
 
-          <article class="ops-card reveal">
-            <div class="eyebrow">GitHub Pages fit</div>
-            <h2>Yes, this can live on GitHub Pages for free</h2>
-            <p>
-              The public track is already static, has a <code>CNAME</code> for <code>behringdx.health</code>,
-              and is safe to publish separately from OpenELIS, Node-RED, and the internal workbench.
-            </p>
-            <ul class="bullet-list">
-              <li>Public static marketing and referral shell on GitHub Pages</li>
-              <li>Custom domain pointed to <code>behringdx.health</code></li>
-              <li>Internal clinical runtime kept off the public host</li>
-              <li>Referral form URL injected as configuration, not hardcoded to a local machine</li>
-            </ul>
+          <article class="workflow-step reveal" data-stage="grossing">
+            <span class="step-number">02</span>
+            <h2>Gross intake turns it into a live lab case</h2>
+            <p>The case is assigned, labelled, and routed into the lab with the right workbench and the right labels.</p>
+          </article>
+
+          <article class="workflow-step reveal" data-stage="staining">
+            <span class="step-number">03</span>
+            <h2>Sectioning, staining, and IHC stay explicit</h2>
+            <p>The process is not hidden inside a generic test bucket. The specimen moves through visible pathology steps.</p>
+          </article>
+
+          <article class="workflow-step reveal" data-stage="reporting">
+            <span class="step-number">04</span>
+            <h2>Review becomes report</h2>
+            <p>The same case carries forward into sign-out, with the final report built from the real case trail instead of disconnected notes.</p>
           </article>
         </div>
       </section>
 
-      <section class="ops-grid" id="ops">
-        <article class="ops-card reveal">
-          <div class="eyebrow">Animation direction</div>
-          <h2>`anime.js` belongs in the product skin</h2>
-          <p>
-            We’re using the motion language from animejs.com as a precise interface layer, not as an AI site builder.
-            That means better staggered reveals, responsive panels, and a product that feels intentional instead
-            of template-ish.
-          </p>
-          <ul class="bullet-list">
-            <li>Hero choreography and section reveals</li>
-            <li>Motion that clarifies state changes instead of decorating them</li>
-            <li>A separate polished domain-facing experience from the internal operator workbench</li>
-          </ul>
-        </article>
-
-        <article class="ops-card reveal">
-          <div class="eyebrow">Automation direction</div>
-          <h2>OpenClaw fits as agent handling around the stack</h2>
-          <p>
-            OpenClaw is not the LIMS. It fits best as a set of dedicated agents around the stack:
-            health checks, scheduled nudges, remote incident triage, and channel-based notifications.
-          </p>
-          <ul class="bullet-list">
-            <li>Ops-watch agents for middleware and OpenELIS health</li>
-            <li>Queue-watch agents for referral and backlog notifications</li>
-            <li>Recovery agents for safe runbook actions on an always-on machine</li>
-            <li>Documentation agents for outage and admin recall</li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="future" id="future">
-        <div class="section-heading reveal">
-          <div class="eyebrow">Right now</div>
-          <h2>Two parallel tracks, one coherent product</h2>
+      <section class="referral-shell reveal" id="referrals">
+        <div class="section-heading">
+          <p class="eyebrow">Referral</p>
+          <h2>Minimal intake. Clear next step.</h2>
+          <p class="section-copy">The public site can host a referral form without exposing the internal lab stack.</p>
         </div>
 
-        <div class="future-grid">
-          <article class="future-card reveal">
-            <span class="future-label">Track A</span>
-            <h3>Clinical hardening</h3>
-            <p>
-              Finish OpenELIS pathology permissions, remove irrelevant catalog noise, and make the daily
-              operator path reliable without admin workarounds.
-            </p>
-          </article>
-          <article class="future-card reveal">
-            <span class="future-label">Track B</span>
-            <h3>Brand + experience</h3>
-            <p>
-              Build `behringdx.health` in parallel so the product looks as considered as the
-              workflow underneath it.
-            </p>
-          </article>
-          <article class="future-card reveal">
-            <span class="future-label">Track C</span>
-            <h3>Ops automation</h3>
-            <p>
-              Use OpenClaw where it adds leverage around monitoring, messaging, and remote routine actions,
-              without making it the source of clinical truth.
-            </p>
-          </article>
+        <div class="referral-card">
+          <div class="referral-card-head">
+            <strong>Referral form</strong>
+            <span id="referral-state">Awaiting public form URL</span>
+          </div>
+
+          <div class="referral-frame-wrap" id="referral-frame-wrap" hidden>
+            <iframe
+              id="referral-frame"
+              class="referral-frame"
+              title="Behring DX referral form"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+
+          <div class="referral-empty" id="referral-empty">
+            <p>Until the public form URL is connected, referrals can continue through the secure portal.</p>
+            <a class="cta cta-primary" id="referral-link" href="https://portal.behringdx.health" target="_blank" rel="noreferrer">Open secure portal</a>
+          </div>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer" id="contact">
+      <span>Behring DX</span>
+      <a href="mailto:behringihcls@gmail.com">behringihcls@gmail.com</a>
+    </footer>
   </div>
 
   <script src="./site-config.js"></script>
