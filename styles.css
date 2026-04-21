@@ -122,6 +122,7 @@ a {
 .hero-stage,
 .story-visual,
 .workflow-step,
+.about-card,
 .referral-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
   border: 1px solid var(--line);
@@ -465,6 +466,10 @@ a {
   margin-top: 94px;
 }
 
+.about-shell {
+  margin-top: 94px;
+}
+
 .section-heading {
   max-width: 680px;
   margin-bottom: 24px;
@@ -474,6 +479,27 @@ a {
   margin: 16px 0 10px;
   font-size: clamp(2.4rem, 5vw, 4.1rem);
   line-height: 0.94;
+}
+
+.about-card {
+  padding: 28px;
+  background: rgba(16, 16, 16, 0.96);
+  max-width: 900px;
+}
+
+.about-card p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 1rem;
+}
+
+.about-card p:last-child {
+  margin-bottom: 0;
+}
+
+.about-card strong {
+  color: var(--ink);
 }
 
 .referral-card {
@@ -567,6 +593,7 @@ a {
   .hero-stage,
   .story-visual,
   .workflow-step,
+  .about-card,
   .referral-card {
     border-radius: 24px;
   }
@@ -574,6 +601,7 @@ a {
   .hero-copy,
   .story-visual,
   .workflow-step,
+  .about-card,
   .referral-card {
     padding: 20px;
   }

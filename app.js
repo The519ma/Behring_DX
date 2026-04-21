@@ -16,10 +16,10 @@ const referralFormUrl = siteConfig.referralFormUrl || "";
 const referralFallbackUrl = siteConfig.referralFallbackUrl || "https://portal.behringdx.health";
 
 const stageTitles = {
-  received: "Referral received",
-  grossing: "Gross intake in motion",
-  staining: "Sectioned and stained",
-  reporting: "Report ready for release"
+  received: "Referral assessment",
+  grossing: "Grossing and lab handling",
+  staining: "Staining and IHC",
+  reporting: "Review and reporting"
 };
 
 function playEntrance() {
