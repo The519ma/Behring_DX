@@ -24,6 +24,12 @@ const stageTitles = {
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/** Ease scroll-driven timeline so motion is a little slower at the start and settles at the end. */
+function easeScrollProgress(t) {
+  const x = Math.min(1, Math.max(0, t));
+  return 1 - (1 - x) ** 2.35;
+}
+
 /**
  * Hero copy fades in on load (independent of the specimen rig).
  */
@@ -56,13 +62,13 @@ function playSpecimenEntrance() {
   const assembly = document.querySelector("#specimen-assembly");
   const cap = document.querySelector("#bottle-cap");
   const lemon = document.querySelector("#lemon-group");
-  if (!assembly || !cap || !lemon) return;
+  if (!assembly || !cap || !lemon) return null;
 
   if (reducedMotion) {
     set(assembly, { translateX: 0, translateY: 0, rotate: 0 });
     set(cap, { rotate: -28 });
     set(lemon, { opacity: 1, scale: 1, translateX: 0, translateY: 0, rotate: 0 });
-    return;
+    return null;
   }
 
   // Initial rig (anime v4: use `set`, not `animate.set`).
@@ -84,7 +90,7 @@ function playSpecimenEntrance() {
     0
   );
 
-  // Secondary wobble on the glass (small angles, chained after the spring settles visually).
+  // Secondary wobble after the spring has mostly settled (spring uses its own settling duration).
   intro.add(
     assembly,
     {
@@ -92,7 +98,7 @@ function playSpecimenEntrance() {
       duration: 180,
       ease: "out(2)"
     },
-    720
+    1180
   );
   intro.add(
     assembly,
@@ -135,31 +141,42 @@ function playSpecimenEntrance() {
     },
     560
   );
+
+  return intro;
 }
 
 /**
  * While `.hero-scroll-host` is taller than the viewport, we scrub a paused timeline: copy drifts
  * right, stage drifts left, lemon lifts out of the jar. Progress = how far the host has moved
  * through the sticky window.
+ *
+ * @returns {() => void} Call after the intro timeline to re-sync transforms.
  */
 function setupHeroScrollStory() {
   const host = document.querySelector(".hero-scroll-host");
   const copy = document.querySelector("#hero-copy");
   const stage = document.querySelector("#hero-stage");
   const lemon = document.querySelector("#lemon-group");
-  if (!host || !copy || !stage || !lemon) return;
+  if (!host || !copy || !stage || !lemon) return () => {};
+
+  if (reducedMotion) {
+    set(copy, { translateX: 0, translateY: 0, opacity: 1 });
+    set(stage, { translateX: 0, translateY: 0 });
+    set(lemon, { translateX: 0, translateY: 0, rotate: 0, scale: 1 });
+    return () => {};
+  }
 
   const scrollTl = createTimeline({
     autoplay: false,
-    defaults: { duration: 2200, ease: "linear" }
+    defaults: { duration: 2400, ease: "linear" }
   });
 
   scrollTl.add(
     copy,
     {
-      translateX: [0, 56],
-      translateY: [0, 8],
-      opacity: [1, 0.86]
+      translateX: [0, 58],
+      translateY: [0, 10],
+      opacity: [1, 0.84]
     },
     0
   );
@@ -167,8 +184,8 @@ function setupHeroScrollStory() {
   scrollTl.add(
     stage,
     {
-      translateX: [0, -72],
-      translateY: [0, 4]
+      translateX: [0, -76],
+      translateY: [0, 6]
     },
     0
   );
@@ -176,10 +193,10 @@ function setupHeroScrollStory() {
   scrollTl.add(
     lemon,
     {
-      translateX: [0, 52],
-      translateY: [0, -210],
-      rotate: [0, 22],
-      scale: [1, 1.08]
+      translateX: [0, 56],
+      translateY: [0, -228],
+      rotate: [0, 24],
+      scale: [1, 1.1]
     },
     0
   );
@@ -191,7 +208,7 @@ function setupHeroScrollStory() {
     let progress = travel > 0 ? -rect.top / travel : 0;
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
-    const t = progress * scrollTl.duration;
+    const t = easeScrollProgress(progress) * scrollTl.duration;
     scrollTl.seek(t, true);
   }
 
@@ -211,6 +228,8 @@ function setupHeroScrollStory() {
       requestAnimationFrame(onFrame);
     });
   }
+
+  return scrubHeroScroll;
 }
 
 function watchReveals() {
@@ -298,8 +317,15 @@ function mountReferralForm() {
 }
 
 playCopyEntrance();
-playSpecimenEntrance();
-setupHeroScrollStory();
+
+const syncHeroScroll = setupHeroScrollStory();
+const specimenIntro = playSpecimenEntrance();
+if (specimenIntro && typeof specimenIntro.then === "function") {
+  specimenIntro.then(() => {
+    requestAnimationFrame(syncHeroScroll);
+  });
+}
+
 watchReveals();
 watchWorkflow();
 mountReferralForm();
