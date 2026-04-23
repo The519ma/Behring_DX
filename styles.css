@@ -120,7 +120,7 @@ a {
 
 .hero-scroll-host {
   position: relative;
-  min-height: 280vh;
+  min-height: 520vh;
 }
 
 .hero-sticky {
@@ -158,8 +158,33 @@ a {
 #hero-copy h1,
 #hero-copy .hero-lead,
 #hero-copy .hero-hint,
+#hero-copy .hero-lab-captions,
 #hero-copy .hero-actions .cta {
   opacity: 0;
+}
+
+.hero-lab-captions {
+  position: relative;
+  min-height: 4.5em;
+  margin: 16px 0 0;
+}
+
+.hero-lab-step {
+  margin: 0;
+  line-height: 1.45;
+  font-size: 0.92rem;
+  color: var(--muted);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-lab-step.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .hero h1,
@@ -286,6 +311,12 @@ a {
 #lemon-group {
   transform-origin: 0 0;
   transform-box: fill-box;
+}
+
+#lab-strip {
+  transform-origin: 160px 210px;
+  transform-box: fill-box;
+  will-change: transform;
 }
 
 .workflow-story {

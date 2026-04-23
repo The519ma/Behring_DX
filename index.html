@@ -41,7 +41,14 @@
                 and controlled exposure. The lemon wedge is a familiar stand-in for tissue in training visuals—
                 delicate, easy to bruise, and best examined once the vessel is opened with intention.
               </p>
-              <p class="hero-hint">Scroll to release the wedge from the jar.</p>
+              <p class="hero-hint">Scroll to follow the lab story—embedding, sectioning, staining, review.</p>
+              <div class="hero-lab-captions" id="hero-lab-captions" aria-live="polite">
+                <p class="hero-lab-step is-active" data-lab="0">Accession: controlled release from the transport vessel.</p>
+                <p class="hero-lab-step" data-lab="1">Embedding: the core becomes encased in a paraffin block.</p>
+                <p class="hero-lab-step" data-lab="2">Sectioning: the microtome shaves a ribbon to glass.</p>
+                <p class="hero-lab-step" data-lab="3">Staining: IHC colour develops on the section.</p>
+                <p class="hero-lab-step" data-lab="4">Review: the slide is read under the microscope.</p>
+              </div>
               <div class="hero-actions">
                 <a class="cta cta-primary" href="#services">View services</a>
                 <a class="cta cta-secondary" href="#referrals">Start referral</a>
@@ -50,12 +57,12 @@
 
             <div class="hero-stage" id="hero-stage">
               <div class="stage-frame">
-                <div class="stage-label">Demonstration vessel</div>
+                <div class="stage-label" id="stage-label">Demonstration vessel</div>
                 <svg
                   class="specimen-svg"
                   viewBox="0 0 320 420"
                   role="img"
-                  aria-label="Glass specimen jar with label SPECIMEN A01 and a lemon wedge inside"
+                  aria-label="Pathology story: from specimen vessel through embedding, sectioning, staining, to microscopy"
                 >
                   <defs>
                     <linearGradient id="jarSheen" x1="0" y1="0" x2="1" y2="1">
@@ -67,6 +74,14 @@
                       <stop offset="0%" stop-color="rgba(200, 214, 198, 0.35)" />
                       <stop offset="100%" stop-color="rgba(245, 248, 244, 0.12)" />
                     </linearGradient>
+                    <linearGradient id="waxTop" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="rgba(255, 248, 230, 0.95)" />
+                      <stop offset="100%" stop-color="rgba(232, 220, 200, 0.88)" />
+                    </linearGradient>
+                    <linearGradient id="ihcDab" x1="0.5" y1="0" x2="0.5" y2="1">
+                      <stop offset="0%" stop-color="rgba(150, 95, 55, 0.55)" />
+                      <stop offset="100%" stop-color="rgba(110, 65, 38, 0.88)" />
+                    </linearGradient>
                     <filter id="pencil" x="-20%" y="-20%" width="140%" height="140%">
                       <feGaussianBlur in="SourceGraphic" stdDeviation="0.25" result="b" />
                       <feColorMatrix
@@ -75,13 +90,23 @@
                         values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"
                       />
                     </filter>
+                    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="g" />
+                      <feMerge>
+                        <feMergeNode in="g" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
                   </defs>
 
+                  <!-- 5×320pt horizontal strip, translated on scroll. -->
+                  <g id="lab-strip" class="lab-strip" transform="translate(0,0)">
+                    <!-- ––– Panel 0: vessel (intro JS targets these ids) ––– -->
+                    <g class="lab-panel" data-panel="0" transform="translate(0,0)">
                   <g class="specimen-floor">
                     <ellipse cx="160" cy="372" rx="72" ry="10" fill="rgba(36, 52, 48, 0.06)" />
                   </g>
 
-                  <!-- Whole assembly: enters from the right with inertia on load. -->
                   <g id="specimen-assembly" class="specimen-assembly">
                     <!-- Jar body (glass silhouette + inked outline). -->
                     <g id="jar-body" filter="url(#pencil)">
@@ -167,6 +192,107 @@
                       stroke-width="1.2"
                       stroke-linecap="round"
                     />
+                  </g>
+                    </g>
+
+                    <!-- ––– Panel 1: paraffin block ––– -->
+                    <g class="lab-panel" data-panel="1" transform="translate(320,0)">
+                      <ellipse cx="160" cy="372" rx="72" ry="9" fill="rgba(36, 52, 48, 0.05)" />
+                      <g id="wax-scene" filter="url(#pencil)">
+                        <path
+                          d="M96 200 L160 150 L224 200 L220 300 L100 300 Z"
+                          fill="url(#waxTop)"
+                          stroke="rgba(52,58,56,0.45)"
+                          stroke-width="1.1"
+                        />
+                        <path
+                          d="M108 200 L160 160 L212 200 L160 200 Z"
+                          fill="rgba(255,255,255,0.35)"
+                          stroke="rgba(52,58,56,0.2)"
+                        />
+                        <g id="wax-embed" transform="translate(160,255)">
+                          <rect x="-46" y="-38" width="92" height="72" rx="6" fill="rgba(255, 252, 240, 0.85)" stroke="rgba(52,58,56,0.4)" />
+                          <ellipse cx="0" cy="-4" rx="28" ry="20" fill="rgba(220, 200, 140, 0.55)" stroke="rgba(90, 78, 48, 0.35)" />
+                        </g>
+                        <g id="wax-glow" opacity="0" filter="url(#softGlow)">
+                          <circle cx="160" cy="262" r="40" fill="rgba(200, 190, 160, 0.35)" />
+                        </g>
+                      </g>
+                    </g>
+
+                    <!-- ––– Panel 2: microtome (thin section) ––– -->
+                    <g class="lab-panel" data-panel="2" transform="translate(640,0)">
+                      <ellipse cx="160" cy="372" rx="72" ry="9" fill="rgba(36, 52, 48, 0.05)" />
+                      <g id="microtome-scene" filter="url(#pencil)">
+                        <rect x="80" y="280" width="200" height="18" rx="4" fill="rgba(55, 58, 56, 0.12)" stroke="rgba(52,58,56,0.4)" />
+                        <rect x="92" y="200" width="16" height="80" rx="2" fill="rgba(200, 202, 198, 0.9)" stroke="rgba(52,58,56,0.4)" />
+                        <g transform="translate(200, 235)">
+                          <rect x="-20" y="-28" width="40" height="28" rx="3" fill="url(#waxTop)" stroke="rgba(52,58,56,0.4)" />
+                        </g>
+                        <g id="microtome-blade" transform="translate(150, 248)">
+                          <path d="M-40 0 L40 0" fill="none" stroke="rgba(40, 44, 42, 0.75)" stroke-width="2" stroke-linecap="round" />
+                          <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(100, 100, 100, 0.5)" stroke-width="1" />
+                        </g>
+                        <path
+                          id="section-ribbon"
+                          d="M 130 256 Q 200 220 255 256"
+                          fill="none"
+                          stroke="rgba(200, 195, 185, 0.65)"
+                          stroke-width="0.9"
+                        />
+                        <g id="section-float" transform="translate(200, 248)" opacity="0.35">
+                          <rect x="-14" y="-2" width="28" height="3" rx="0.5" fill="rgba(255, 255, 255, 0.5)" />
+                        </g>
+                      </g>
+                    </g>
+
+                    <!-- ––– Panel 3: IHC on slide ––– -->
+                    <g class="lab-panel" data-panel="3" transform="translate(960,0)">
+                      <ellipse cx="160" cy="372" rx="72" ry="9" fill="rgba(36, 52, 48, 0.05)" />
+                      <g id="stain-scene" filter="url(#pencil)">
+                        <g transform="translate(160, 260)">
+                          <rect x="-100" y="-22" width="200" height="44" rx="5" fill="rgba(255, 255, 255, 0.88)" stroke="rgba(52,58,56,0.4)" />
+                          <ellipse id="ihc-bloom" cx="0" cy="0" rx="44" ry="32" fill="url(#ihcDab)" opacity="0" />
+                        </g>
+                        <g id="stain-droplet" transform="translate(160, 200)" opacity="0">
+                          <path d="M0 0 Q 6 16 0 32 Q -6 16 0 0" fill="rgba(80, 120, 150, 0.35)" stroke="rgba(52,58,56,0.2)" />
+                        </g>
+                        <g id="stain-heat" opacity="0" transform="translate(160, 260)">
+                          <rect x="-70" y="-4" width="140" height="8" rx="2" fill="rgba(200, 120, 80, 0.15)" />
+                        </g>
+                      </g>
+                    </g>
+
+                    <!-- ––– Panel 4: microscope review ––– -->
+                    <g class="lab-panel" data-panel="4" transform="translate(1280,0)">
+                      <ellipse cx="160" cy="372" rx="72" ry="9" fill="rgba(36, 52, 48,0.05)" />
+                      <g id="view-scene" filter="url(#pencil)">
+                        <g transform="translate(160, 300)">
+                          <rect x="-70" y="-6" width="140" height="10" rx="2" fill="rgba(80, 70, 60, 0.15)" />
+                          <g id="view-slide" transform="translate(0, -4)">
+                            <rect x="-56" y="-3" width="112" height="5" rx="0.5" fill="rgba(255, 255, 255, 0.95)" stroke="rgba(52,58,56,0.3)" />
+                            <rect x="-14" y="-2" width="24" height="2" fill="rgba(150, 95, 55, 0.45)" />
+                          </g>
+                        </g>
+                        <g id="scope-body" transform="translate(200, 160)">
+                          <rect x="-8" y="0" width="16" height="120" fill="rgba(200, 202, 200, 0.85)" stroke="rgba(52,58,56,0.4)" />
+                          <circle cx="0" cy="0" r="22" fill="none" stroke="rgba(52,58,56,0.5)" />
+                          <path
+                            d="M 0 22 L 0 120"
+                            fill="none"
+                            stroke="rgba(100, 120, 130, 0.45)"
+                            stroke-width="1.2"
+                          />
+                        </g>
+                        <g id="scope-ocular" transform="translate(200, 142)" opacity="0.85">
+                          <circle cx="0" cy="0" r="18" fill="none" stroke="rgba(40, 44, 42, 0.55)" stroke-width="1.2" />
+                          <circle cx="0" cy="0" r="6" fill="rgba(200, 220, 255, 0.25)" />
+                        </g>
+                        <g id="scope-beam" opacity="0" transform="translate(200, 220)">
+                          <line x1="0" y1="0" x2="0" y2="70" stroke="rgba(200, 210, 220, 0.35)" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                      </g>
+                    </g>
                   </g>
                 </svg>
               </div>
