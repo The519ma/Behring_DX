@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Behring DX | behringdx.health</title>
   <meta name="description" content="Behring DX offers pathology-focused services including immunohistochemistry, specimen handling, reporting, and referral support.">
-  <meta name="theme-color" content="#f0ae17">
+  <meta name="theme-color" content="#e8e4dc">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="page-shell">
     <header class="site-header">
       <a class="brand-lockup" href="#top" aria-label="Behring DX home">
-        <img src="./logo.png" alt="Behring DX logo" class="brand-logo">
+        <img src="./logo.svg" alt="Behring DX logo" class="brand-logo" width="56" height="56">
         <div class="brand-text">
           <span class="brand-name">Behring DX</span>
           <span class="brand-sub">Immuno Histo Chemistry</span>
@@ -30,58 +29,148 @@
     </header>
 
     <main id="top">
-      <section class="hero">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Pathology-first lab</p>
-          <h1>From one slide to the whole lab process.</h1>
-          <p class="hero-lead">
-            Behring DX brings pathology services closer to Madurai with a sharper focus on immunohistochemistry,
-            specimen handling, and timely reporting.
-          </p>
-          <div class="hero-actions">
-            <a class="cta cta-primary" href="#services">View services</a>
-            <a class="cta cta-secondary" href="#referrals">Start referral</a>
-          </div>
-        </div>
+      <!-- Tall scroll host keeps the hero pinned while scroll drives the storytelling timeline. -->
+      <section class="hero-scroll-host" aria-label="Specimen handling overview">
+        <div class="hero-sticky">
+          <div class="hero-grid">
+            <div class="hero-copy" id="hero-copy">
+              <p class="eyebrow">Specimen integrity</p>
+              <h1>Every specimen tells a story when handling stays precise.</h1>
+              <p class="hero-lead">
+                From accession to section review, the same principles apply: stable containment, clear labelling,
+                and controlled exposure. The lemon wedge is a familiar stand-in for tissue in training visuals—
+                delicate, easy to bruise, and best examined once the vessel is opened with intention.
+              </p>
+              <p class="hero-hint">Scroll to release the wedge from the jar.</p>
+              <div class="hero-actions">
+                <a class="cta cta-primary" href="#services">View services</a>
+                <a class="cta cta-secondary" href="#referrals">Start referral</a>
+              </div>
+            </div>
 
-        <div class="hero-stage reveal">
-          <div class="stage-frame">
-            <div class="stage-label">Live process view</div>
-            <svg class="slide-scene" viewBox="0 0 780 560" role="img" aria-label="A specimen slide and microscope scene">
-              <defs>
-                <linearGradient id="goldFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ffd769"></stop>
-                  <stop offset="100%" stop-color="#f0ae17"></stop>
-                </linearGradient>
-                <linearGradient id="glassFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.95)"></stop>
-                  <stop offset="100%" stop-color="rgba(255,255,255,0.68)"></stop>
-                </linearGradient>
-              </defs>
+            <div class="hero-stage" id="hero-stage">
+              <div class="stage-frame">
+                <div class="stage-label">Demonstration vessel</div>
+                <svg
+                  class="specimen-svg"
+                  viewBox="0 0 320 420"
+                  role="img"
+                  aria-label="Glass specimen jar with label SPECIMEN A01 and a lemon wedge inside"
+                >
+                  <defs>
+                    <linearGradient id="jarSheen" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="rgba(255,255,255,0.55)" />
+                      <stop offset="45%" stop-color="rgba(255,255,255,0.08)" />
+                      <stop offset="100%" stop-color="rgba(210,220,230,0.25)" />
+                    </linearGradient>
+                    <linearGradient id="fluidWash" x1="0.5" y1="1" x2="0.5" y2="0">
+                      <stop offset="0%" stop-color="rgba(200, 214, 198, 0.35)" />
+                      <stop offset="100%" stop-color="rgba(245, 248, 244, 0.12)" />
+                    </linearGradient>
+                    <filter id="pencil" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="0.25" result="b" />
+                      <feColorMatrix
+                        in="b"
+                        type="matrix"
+                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"
+                      />
+                    </filter>
+                  </defs>
 
-              <g class="scene-microscope">
-                <path d="M526 130c42 0 81 31 81 87 0 39-18 67-49 89l26 42h38v34H476v-34h46l-20-33h-123c-42 0-74-26-74-67 0-28 17-51 45-63l59-24v-63h117v32h-70v22h70v-22z"></path>
-                <circle cx="520" cy="247" r="28"></circle>
-                <rect x="369" y="299" width="170" height="18" rx="9"></rect>
-              </g>
+                  <g class="specimen-floor">
+                    <ellipse cx="160" cy="372" rx="72" ry="10" fill="rgba(36, 52, 48, 0.06)" />
+                  </g>
 
-              <g class="scene-slide-card">
-                <rect x="126" y="314" width="262" height="122" rx="20"></rect>
-                <rect x="160" y="344" width="196" height="62" rx="12"></rect>
-                <ellipse class="sample-shadow" cx="259" cy="375" rx="68" ry="20"></ellipse>
-                <ellipse class="sample-core" cx="259" cy="375" rx="54" ry="28"></ellipse>
-                <circle class="sample-glow" cx="259" cy="375" r="16"></circle>
-              </g>
+                  <!-- Whole assembly: enters from the right with inertia on load. -->
+                  <g id="specimen-assembly" class="specimen-assembly" transform="translate(0,0)">
+                    <!-- Jar body (glass silhouette + inked outline). -->
+                    <g id="jar-body" filter="url(#pencil)">
+                      <path
+                        class="jar-outline"
+                        d="M108 118c0-8 6-14 14-14h76c8 0 14 6 14 14v8c0 6-4 11-10 13l-6 2v206c0 16-13 29-29 29h-34c-16 0-29-13-29-29V143l-6-2c-6-2-10-7-10-13v-8z"
+                        fill="url(#jarSheen)"
+                        stroke="rgba(52,58,56,0.55)"
+                        stroke-width="1.35"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        class="jar-inner"
+                        d="M122 148h76v188c0 9-7 16-16 16h-44c-9 0-16-7-16-16V148z"
+                        fill="url(#fluidWash)"
+                        stroke="rgba(52,58,56,0.28)"
+                        stroke-width="1"
+                      />
+                    </g>
 
-              <g class="scene-status">
-                <rect x="486" y="84" width="202" height="64" rx="18"></rect>
-                <text x="514" y="123">SPECIMEN READY</text>
-              </g>
+                    <!-- Practice wedge: revealed after the cap opens; scroll adds motion on the inner group. -->
+                    <g transform="translate(160,248)">
+                      <g id="lemon-group" class="lemon-group">
+                      <path
+                        class="lemon-wedge"
+                        d="M-38 18 C-42 2 -18 -28 18 -26 C38 -24 48 4 32 22 C12 44 -28 40 -38 18Z"
+                        fill="rgba(236, 220, 120, 0.92)"
+                        stroke="rgba(120, 108, 52, 0.55)"
+                        stroke-width="1.1"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        class="lemon-segment"
+                        d="M-6 -8 L10 14"
+                        stroke="rgba(140, 120, 60, 0.45)"
+                        stroke-width="0.9"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        class="lemon-segment"
+                        d="M-18 6 L8 22"
+                        stroke="rgba(140, 120, 60, 0.35)"
+                        stroke-width="0.85"
+                        stroke-linecap="round"
+                      />
+                      <circle cx="-10" cy="8" r="1.6" fill="rgba(90, 78, 40, 0.35)" />
+                      <circle cx="8" cy="4" r="1.4" fill="rgba(90, 78, 40, 0.3)" />
+                      </g>
+                    </g>
 
-              <g class="scene-caption">
-                <text x="122" y="486">One accession. One clear path.</text>
-              </g>
-            </svg>
+                    <!-- Paper label (minimal typography). -->
+                    <g id="jar-label" transform="translate(160,218)">
+                      <rect x="-52" y="-22" width="104" height="44" rx="4" fill="rgba(252, 250, 244, 0.92)" stroke="rgba(52,58,56,0.35)" stroke-width="0.9" />
+                      <text
+                        x="0"
+                        y="4"
+                        text-anchor="middle"
+                        class="label-type"
+                        fill="rgba(36, 40, 38, 0.78)"
+                        font-family="DM Sans, system-ui, sans-serif"
+                        font-size="11"
+                        letter-spacing="0.24em"
+                      >
+                        SPECIMEN A01
+                      </text>
+                    </g>
+
+                    <!-- Cap: inner group rotates; outer group keeps SVG placement separate from CSS transforms. -->
+                    <g transform="translate(160,118)">
+                      <g id="bottle-cap" class="bottle-cap">
+                        <rect x="-54" y="-26" width="108" height="28" rx="7" fill="rgba(248, 246, 240, 0.95)" stroke="rgba(52,58,56,0.5)" stroke-width="1.1" />
+                        <rect x="-40" y="-32" width="80" height="10" rx="3" fill="rgba(230, 232, 228, 0.9)" stroke="rgba(52,58,56,0.35)" stroke-width="0.9" />
+                        <line x1="-34" y1="-18" x2="34" y2="-18" stroke="rgba(52,58,56,0.2)" stroke-width="0.8" stroke-linecap="round" />
+                      </g>
+                    </g>
+
+                    <!-- Foreground glass edge for depth. -->
+                    <path
+                      id="jar-rim"
+                      d="M118 140c10 4 22 6 42 6s34-2 42-6"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.5)"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -194,6 +283,6 @@
   </div>
 
   <script src="./site-config.js"></script>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

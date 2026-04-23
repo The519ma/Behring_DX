@@ -68,14 +68,8 @@ If the form blocks iframe embedding, the site will still expose the fallback lau
 
 ## GitHub Pages
 
-This repo now includes:
+Publishing is handled by GitHub Actions:
 
-- `.github/workflows/deploy-behringdx-health.yml`
-- `.nojekyll`
-- `CNAME`
+- `.github/workflows/deploy-pages.yml` — runs `npm ci && npm run build`, uploads the Vite output folder `dist/` to GitHub Pages.
 
-That means the website can be published directly from:
-
-- `websites/behringdx-health/`
-
-through GitHub Pages with the custom domain attached.
+The custom domain file is copied into `dist/` from `public/CNAME` at build time (along with `public/.nojekyll`). Configure the **Pages** source as **GitHub Actions** in the repository settings, and point DNS for `behringdx.health` to GitHub Pages as documented by GitHub.
