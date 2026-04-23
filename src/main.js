@@ -1,4 +1,4 @@
-import { animate, createTimeline, stagger } from "animejs";
+import { animate, createTimeline, stagger, set, spring } from "animejs";
 import "../styles.css";
 
 const revealTargets = Array.from(document.querySelectorAll(".reveal"));
@@ -47,9 +47,10 @@ function playCopyEntrance() {
 
 /**
  * Load choreography for the specimen vessel:
- * 1) jar enters from the right with overshoot / settle
- * 2) cap twists open (rotation on #bottle-cap)
- * 3) lemon wedge fades and scales into view inside the jar
+ * 1) jar enters from the right with spring overshoot / settle (anime.js v4 only uses the first TWO
+ *    entries of a [from, to, ...] array per tween, so we chain tweens instead of a 3-stop array).
+ * 2) cap twists open (rotation on #bottle-cap).
+ * 3) lemon wedge fades and scales into view inside the jar.
  */
 function playSpecimenEntrance() {
   const assembly = document.querySelector("#specimen-assembly");
@@ -58,54 +59,88 @@ function playSpecimenEntrance() {
   if (!assembly || !cap || !lemon) return;
 
   if (reducedMotion) {
-    animate.set(assembly, { translateX: 0, translateY: 0, rotate: 0 });
-    animate.set(cap, { rotate: -26 });
-    animate.set(lemon, { opacity: 1, scale: 1 });
+    set(assembly, { translateX: 0, translateY: 0, rotate: 0 });
+    set(cap, { rotate: -28 });
+    set(lemon, { opacity: 1, scale: 1, translateX: 0, translateY: 0, rotate: 0 });
     return;
   }
 
-  animate.set(assembly, { translateX: 360, translateY: 0, rotate: 4 });
-  animate.set(cap, { rotate: 0 });
-  animate.set(lemon, { opacity: 0, scale: 0.78 });
+  // Initial rig (anime v4: use `set`, not `animate.set`).
+  set(assembly, { translateX: 380, translateY: 0, rotate: 5 });
+  set(cap, { rotate: 0 });
+  set(lemon, { opacity: 0, scale: 0.72, translateX: 0, translateY: 0, rotate: 0 });
 
   const intro = createTimeline({ defaults: { ease: "out(3)" } });
 
+  // Slide in: large horizontal move + slight rotation, eased so it still feels weighted.
   intro.add(
     assembly,
     {
-      translateX: [360, -10, 0],
-      rotate: [4, -1.8, 0.35, 0],
-      duration: 1280,
-      ease: "out(4)"
+      translateX: [380, 0],
+      rotate: [5, 0],
+      duration: 1050,
+      ease: spring({ stiffness: 95, damping: 14, mass: 1.05, velocity: 0 })
     },
     0
   );
 
+  // Secondary wobble on the glass (small angles, chained after the spring settles visually).
+  intro.add(
+    assembly,
+    {
+      rotate: [0, -2.2],
+      duration: 180,
+      ease: "out(2)"
+    },
+    720
+  );
+  intro.add(
+    assembly,
+    {
+      rotate: [-2.2, 0.9],
+      duration: 200,
+      ease: "inOut(2)"
+    },
+    ">"
+  );
+  intro.add(
+    assembly,
+    {
+      rotate: [0.9, 0],
+      duration: 260,
+      ease: "out(3)"
+    },
+    ">"
+  );
+
+  // Cap twists open partway through the approach so it reads as one coordinated lab motion.
   intro.add(
     cap,
     {
-      rotate: [0, -30],
-      duration: 720,
+      rotate: [0, -32],
+      duration: 780,
       ease: "inOut(3)"
     },
-    520
+    380
   );
 
+  // Wedge becomes visible as the cap clears the opening.
   intro.add(
     lemon,
     {
       opacity: [0, 1],
-      scale: [0.78, 1],
-      duration: 560,
+      scale: [0.72, 1],
+      duration: 520,
       ease: "out(2)"
     },
-    620
+    560
   );
 }
 
 /**
- * While the tall `.hero-scroll-host` scrolls through the viewport, we scrub a paused
- * timeline so typography shifts right, the stage shifts left, and the wedge lifts out.
+ * While `.hero-scroll-host` is taller than the viewport, we scrub a paused timeline: copy drifts
+ * right, stage drifts left, lemon lifts out of the jar. Progress = how far the host has moved
+ * through the sticky window.
  */
 function setupHeroScrollStory() {
   const host = document.querySelector(".hero-scroll-host");
@@ -116,15 +151,15 @@ function setupHeroScrollStory() {
 
   const scrollTl = createTimeline({
     autoplay: false,
-    defaults: { duration: 2000, ease: "linear" }
+    defaults: { duration: 2200, ease: "linear" }
   });
 
   scrollTl.add(
     copy,
     {
-      translateX: [0, 52],
-      translateY: [0, 6],
-      opacity: [1, 0.88]
+      translateX: [0, 56],
+      translateY: [0, 8],
+      opacity: [1, 0.86]
     },
     0
   );
@@ -132,8 +167,8 @@ function setupHeroScrollStory() {
   scrollTl.add(
     stage,
     {
-      translateX: [0, -64],
-      translateY: [0, 2]
+      translateX: [0, -72],
+      translateY: [0, 4]
     },
     0
   );
@@ -141,22 +176,23 @@ function setupHeroScrollStory() {
   scrollTl.add(
     lemon,
     {
-      translateX: [0, 44],
-      translateY: [0, -190],
-      rotate: [0, 18],
-      scale: [1, 1.05]
+      translateX: [0, 52],
+      translateY: [0, -210],
+      rotate: [0, 22],
+      scale: [1, 1.08]
     },
     0
   );
 
   let scheduled = false;
-  function scrub() {
+  function scrubHeroScroll() {
     const travel = host.offsetHeight - window.innerHeight;
     const rect = host.getBoundingClientRect();
     let progress = travel > 0 ? -rect.top / travel : 0;
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
-    scrollTl.seek(progress * scrollTl.duration, true);
+    const t = progress * scrollTl.duration;
+    scrollTl.seek(t, true);
   }
 
   function onFrame() {
@@ -164,14 +200,16 @@ function setupHeroScrollStory() {
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
-      scrub();
+      scrubHeroScroll();
     });
   }
 
   if (!reducedMotion) {
     window.addEventListener("scroll", onFrame, { passive: true });
     window.addEventListener("resize", onFrame);
-    onFrame();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(onFrame);
+    });
   }
 }
 
